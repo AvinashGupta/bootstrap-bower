@@ -2631,7 +2631,6 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
             });
 
             attrs.$observe( prefix+'Data', function ( val ) {
-              console.log('popoverData', val);
               scope.tt_data = val;
             });
 
