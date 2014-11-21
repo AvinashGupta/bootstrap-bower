@@ -2461,6 +2461,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
           'content="'+startSym+'tt_content'+endSym+'" '+
           'placement="'+startSym+'tt_placement'+endSym+'" '+
           'popover-data="'+startSym+'tt_data'+endSym+'" '+
+          'popover-hide="tt_hide" '+
           'animation="tt_animation" '+
           'is-open="tt_isOpen"'+
           '>'+
@@ -2493,7 +2494,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
             // By default, the tooltip is not open.
             // TODO add ability to start tooltip opened
             scope.tt_isOpen = false;
-
+            scope.tt_hide = hide;
             function toggleTooltipBind () {
               if ( ! scope.tt_isOpen ) {
                 showTooltipBind();
@@ -2728,7 +2729,23 @@ angular.module( 'ui.bootstrap.popover', [ 'ui.bootstrap.tooltip' ] )
 
 .directive( 'popover', [ '$tooltip', function ( $tooltip ) {
   return $tooltip( 'popover', 'popover', 'click' );
+}])
+
+.directive( 'popoverTemplatePopup', [ function() {
+    return {
+        restrict: 'EA',
+        replace: true,
+        scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&', popoverData: '@', popoverHide: '&'},
+        templateUrl: 'template/popover/popover-template.html'
+    };
+}])
+
+.directive( 'popoverTemplate', [ '$compile', '$timeout', '$parse', '$window', '$tooltip', 
+  function ( $compile, $timeout, $parse, $window, $tooltip ) {
+    return $tooltip( 'popoverTemplate', 'popover', 'click');
 }]);
+
+
 
 angular.module('ui.bootstrap.progressbar', [])
 
